@@ -11,7 +11,7 @@ int main() {
     double x = 0.2;
     double p = 0.0;
     double error = 10e-8;
-    int max_orbit = std::pow(10,10);
+    int max_orbit = std::pow(10,100);
 
     run_orbit_sim(x, p, error, max_orbit, example_function);
 
