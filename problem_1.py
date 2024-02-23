@@ -11,7 +11,7 @@ seed = 0
 left_interval = -2.0
 right_interval = 0.25
 num_steps_interval = 100
-max_iter = 10000
+max_iter = 80000
 c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
 points = None
@@ -32,7 +32,7 @@ y = [point[1] for point in points]
 
 
 # Create a scatter plot with variable marker size
-plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.001)
+plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.015)
 
 # Add labels and title
 plt.xlabel('X-axis')
