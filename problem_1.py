@@ -5,24 +5,36 @@ import numpy as np
 from collections import Counter
 
 
+gen_new = input("Generate new points? (y/n) ")
+file_name = input("Enter file name: ")
+if gen_new == "y":
+  seed = 0
 
-seed = 0
+  left_interval = -2.0
+  right_interval = 0.25
+  num_steps_interval = 800
+  max_iter = 100000
+  c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
-left_interval = -2.0
-right_interval = 0.25
-num_steps_interval = 800
-max_iter = 100000
-c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
+  points = None
+  for c in c_values:
 
-points = None
-for c in c_values:
+    f = lambda x: c + x**2
+    n_points = run_orbit_sim(seed, max_iter, f, f"orbit_c_{c}.txt", c)
+    if points is None:
+      points = n_points
+    else:
+      points = np.concatenate((points, n_points))
 
-  f = lambda x: c + x**2
-  n_points = run_orbit_sim(seed, max_iter, f, f"orbit_c_{c}.txt", c)
-  if points is None:
-    points = n_points
-  else:
-    points = np.concatenate((points, n_points))
+  #Save points to file
+  np.savetxt(file_name, points, fmt='%f')
+elif gen_new == "n":
+  #Load points from file
+  points = np.loadtxt(file_name)
+
+
+
+
 
 
 
