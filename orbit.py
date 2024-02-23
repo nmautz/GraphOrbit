@@ -28,5 +28,7 @@ def run_orbit_sim(x, max_orbit, func, orbit_filename, c):
         new_pp.append([c, point])
 
     new_pp = np.array(new_pp)
+    # Only keep last 10%
+    new_pp = new_pp[int(len(new_pp)*0.9):]
     return new_pp
     

@@ -30,6 +30,7 @@ for c in c_values:
 x = [point[0] for point in points]
 y = [point[1] for point in points]
 
+
 # Create a scatter plot with variable marker size
 plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.001)
 
