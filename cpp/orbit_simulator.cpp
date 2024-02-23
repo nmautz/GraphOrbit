@@ -6,7 +6,7 @@ bool num_in_range_of_x(double num, double x, double error) {
 
 std::pair<double, int> orbit(double x, double p, double error, int max, double (*func)(double)) {
     for (int i = 0; i < max; ++i) {
-        if (i % max/4 == 0) {
+        if (i % max/ == 0) {
             std::cout << i << ": " << x << std::endl;
         }
         x = func(x);
