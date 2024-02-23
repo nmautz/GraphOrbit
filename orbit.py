@@ -8,24 +8,25 @@ def num_in_range_of_x(num, x, error):
     return abs(num - x) <= error
 
 def orbit(x, max_iterations, func, filename):
-    output_file = open(filename, "w")
+    #output_file = open(filename, "w")
+    plot_points = []
     for i in range(0,max_iterations):
-        new_x = func(x)
-        if new_x == x:
-            return x, i
-        x = new_x
-        output_file.write(f"{x}\n")
-    print()
-    return x, max_iterations
+        x = func(x)
+        #output_file.write(f"{x}\n")
+        plot_points.append(x)
+
+    return plot_points
 
 def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-def run_orbit_sim(x, max_orbit, func, orbit_filename):
-    round_to = 10
-    orbit_number, iterations = orbit(x, max_orbit, func, orbit_filename)
+def run_orbit_sim(x, max_orbit, func, orbit_filename, c):
+    plot_points = orbit(x, max_orbit, func, orbit_filename)
+    new_pp = []
+    for point in plot_points:
+        new_pp.append([c, point])
 
-    print(f"The orbit number is {truncate_num(orbit_number, round_to)} and the number of iterations is {iterations}")
-
-
+    new_pp = np.array(new_pp)
+    return new_pp
+    
