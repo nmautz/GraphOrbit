@@ -12,8 +12,8 @@ if gen_new == "y":
 
   left_interval = -2.0
   right_interval = 0.25
-  num_steps_interval = 800
-  max_iter = 100000
+  num_steps_interval = 1000
+  max_iter = 1000000
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
