@@ -3,6 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import Counter
+import sys
 
 
 gen_new = input("Generate new points? (y/n) ")
@@ -12,13 +13,19 @@ if gen_new == "y":
 
   left_interval = -2.0
   right_interval = 0.25
-  num_steps_interval = 1000
-  max_iter = 1000000
+  num_steps_interval = 500
+  max_iter = 15000000
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
+  i = 0
   for c in c_values:
 
+    # Print % finished
+    i += 1
+    sys.stdout.write(f"{(i/len(c_values)) *100}% Complete\r")
+    sys.stdout.flush()
+    
     f = lambda x: c + x**2
     n_points = run_orbit_sim(seed, max_iter, f, f"orbit_c_{c}.txt", c)
     if points is None:
@@ -31,7 +38,9 @@ if gen_new == "y":
 elif gen_new == "n":
   #Load points from file
   points = np.loadtxt(file_name)
-
+else:
+  print("Invalid input")
+  exit(0)
 
 
 
