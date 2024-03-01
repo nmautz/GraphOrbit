@@ -16,7 +16,7 @@ if gen_new == "y":
   num_steps_interval = 5000
   max_iter = 10000
   cutoff = 0.9
-  c_values = generate_c_values(left_interval, right_interval, num_steps_interval, cutoff)
+  c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
   i = 0
@@ -28,7 +28,7 @@ if gen_new == "y":
     sys.stdout.flush()
     
     f = lambda x: c + x**2
-    n_points = run_orbit_sim(seed, max_iter, f, c)
+    n_points = run_orbit_sim(seed, max_iter, f, c, cutoff)
     if points is None:
       points = n_points
     else:
