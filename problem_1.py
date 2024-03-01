@@ -13,8 +13,8 @@ if gen_new == "y":
 
   left_interval = -2.0
   right_interval = 0.25
-  num_steps_interval = 500
-  max_iter = 15000000
+  num_steps_interval = 50000
+  max_iter = 100
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
@@ -23,7 +23,7 @@ if gen_new == "y":
 
     # Print % finished
     i += 1
-    sys.stdout.write(f"{(i/len(c_values)) *100}% Complete\r")
+    sys.stdout.write(f"{(i/len(c_values)) *100}% Complete                \r")
     sys.stdout.flush()
     
     f = lambda x: c + x**2
@@ -53,7 +53,7 @@ y = [point[1] for point in points]
 
 
 # Create a scatter plot with variable marker size
-plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.007)
+plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.02, alpha=0.03)
 
 # Add labels and title
 plt.xlabel('c')
