@@ -28,7 +28,7 @@ if gen_new == "y":
     sys.stdout.flush()
     
     f = lambda x: c + x**2
-    n_points = run_orbit_sim(seed, max_iter, f, f"orbit_c_{c}.txt", c)
+    n_points = run_orbit_sim(seed, max_iter, f, c)
     if points is None:
       points = n_points
     else:
