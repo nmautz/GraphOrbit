@@ -21,7 +21,7 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-def run_orbit_sim(x, max_orbit, func, orbit_filename, c):
+def run_orbit_sim(x, max_orbit, func, orbit_filename, c, cutoff):
     plot_points = orbit(x, max_orbit, func, orbit_filename)
     new_pp = []
     for point in plot_points:
@@ -29,6 +29,6 @@ def run_orbit_sim(x, max_orbit, func, orbit_filename, c):
 
     new_pp = np.array(new_pp)
     # Only keep last 10%
-    new_pp = new_pp[int(len(new_pp)*0.9):]
+    new_pp = new_pp[int(len(new_pp)*cutoff):]
     return new_pp
     
