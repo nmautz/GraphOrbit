@@ -7,11 +7,17 @@ def generate_c_values(left, right, num_steps):
 def num_in_range_of_x(num, x, error):
     return abs(num - x) <= error
 
-def orbit(x, max_iterations, func):
+def orbit(x, max_iterations, func,error):
     #output_file = open(filename, "w")
     plot_points = []
+    last_x = None
     for i in range(0,max_iterations):
+
         x = func(x)
+        if last_x is not None:
+            if num_in_range_of_x(x, last_x, error):
+                return plot_points
+        last_x = x
         #output_file.write(f"{x}\n")
         plot_points.append(x)
 
@@ -21,8 +27,8 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-def run_orbit_sim(x, max_orbit, func, c, cutoff):
-    plot_points = orbit(x, max_orbit, func)
+def run_orbit_sim(x, max_orbit, func, c, cutoff,error):
+    plot_points = orbit(x, max_orbit, func,error)
     new_pp = []
     for point in plot_points:
         new_pp.append([c, point])

@@ -11,10 +11,12 @@ file_name = input("Enter file name: ")
 if gen_new == "y":
   seed = 0
 
-  left_interval = -2.0
-  right_interval = 0.25
-  num_steps_interval = 50000
-  max_iter = 100
+  left_interval = -1.5
+  right_interval = -1.25
+  num_steps_interval = 22500
+  max_iter = 10000
+  cutoff = 0.94
+  error = 0.001
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
@@ -26,8 +28,8 @@ if gen_new == "y":
     sys.stdout.write(f"{(i/len(c_values)) *100}% Complete                \r")
     sys.stdout.flush()
     
-    f = lambda x: c + x**2
-    n_points = run_orbit_sim(seed, max_iter, f, f"orbit_c_{c}.txt", c)
+    f = lambda x: x**2 +c
+    n_points = run_orbit_sim(seed, max_iter, f, c, cutoff,error)
     if points is None:
       points = n_points
     else:
