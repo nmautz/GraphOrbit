@@ -1,3 +1,4 @@
 *.txt
 *.pts
 env
+.DS_Store
