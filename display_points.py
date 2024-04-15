@@ -6,8 +6,15 @@ from collections import Counter
 import sys
 
 
-file_name = input("Enter file name: ")
-points = np.loadtxt(file_name)
+# Get argv
+try:
+  file_name = sys.argv[1]
+  points = np.loadtxt(file_name)
+except Exception as e:
+  print(e)
+  print(f"Usage: python3 {sys.argv[0]} <file_name>")
+  exit()
+
 
 # Extract x and y coordinates
 x = [point[0] for point in points]
