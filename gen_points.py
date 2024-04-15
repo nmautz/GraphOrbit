@@ -21,7 +21,7 @@ initial_time = time.time()
 
 seed = 0.1
 
-left_interval = 1.1
+left_interval = 1
 right_interval = 5
 num_steps_interval = 20000
 max_iter = 10000
