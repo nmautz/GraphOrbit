@@ -11,7 +11,6 @@ try:
   file_name = sys.argv[1]
   points = np.loadtxt(file_name)
   lyapunov_exponents = np.load("l_ex_"+file_name+".npy", allow_pickle=True).item()
-  print(lyapunov_exponents)
 except Exception as e:
   print(e)
   print(f"Usage: python3 {sys.argv[0]} <file_name>")
