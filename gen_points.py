@@ -15,9 +15,9 @@ initial_time = time.time()
 seed = 0
 
 left_interval = -1.5
-right_interval = -1.25
-num_steps_interval = 200
-max_iter = 1000
+right_interval = 0
+num_steps_interval = 20000
+max_iter = 10000
 cutoff = 0.94
 error = 0.001
 c_values = generate_c_values(left_interval, right_interval, num_steps_interval)

@@ -20,7 +20,9 @@ def orbit(x, max_iterations, func, func_prime,error):
         sum_lyapunov += np.log(np.abs(func_prime(x)))
         if last_x is not None:
             if num_in_range_of_x(x, last_x, error):
-                return plot_points
+                lyapunov_exponent = sum_lyapunov/iterations
+                return plot_points, lyapunov_exponent
+
         last_x = x
         #output_file.write(f"{x}\n")
         plot_points.append(x)
