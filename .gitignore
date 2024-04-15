@@ -4,5 +4,6 @@ env
 .DS_Store
 *.7z
 __pycache__/orbit.cpython-310.pyc
-l_ex_test.pts.npy
 __pycache__/orbit.cpython-310.pyc
+*.npy
+*.pyc
