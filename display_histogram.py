@@ -20,7 +20,7 @@ x_min = min(x)
 x_max = max(x)
 
 # Calculate histogram
-hist, bins = np.histogram(x, bins=10)  # Adjust the number of bins as needed
+hist, bins = np.histogram(y, bins=100)  # Adjust the number of bins as needed
 
 # Normalize the histogram
 hist = hist / np.sum(hist)
