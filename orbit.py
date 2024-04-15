@@ -8,8 +8,20 @@ def num_in_range_of_x(num, x, error):
     return abs(num - x) <= error
 
 def numerical_derivative(f, x, h=1e-5):
-    #Compute the numerical derivative of function f at point x using central difference formula
-    return (f(x + h) - f(x - h)) / (2 * h)
+    value = None
+    try:
+        # Try the center difference formula
+        value = (f(x + h) - f(x - h)) / (2 * h)
+    except Exception as e:
+        try:
+            # Try right difference formula
+            value =  (f(x + h) - f(x)) / h
+        except Exception as e:
+            # Try left difference formula
+            value=  (f(x) - f(x - h)) / h
+
+    finally:
+        return value
 
 def orbit(x, max_iterations, func,error):
     #output_file = open(filename, "w")
@@ -20,8 +32,12 @@ def orbit(x, max_iterations, func,error):
     for i in range(0,max_iterations):
 
         x = func(x)
-        iterations +=1
-        sum_lyapunov += np.log(np.abs(numerical_derivative(func,x)))
+        deriv_val = numerical_derivative(func, x)
+        if deriv_val is not None:
+            iterations +=1
+            sum_lyapunov += np.log(np.abs(deriv_val))
+        else:
+            print("ERROR: derivitive is None")
         if last_x is not None:
             if num_in_range_of_x(x, last_x, error):
                 lyapunov_exponent = sum_lyapunov/iterations

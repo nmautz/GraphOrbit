@@ -9,13 +9,20 @@ import time
 
 
 
-file_name = input("Enter file name: ")
+# Get argv
+try:
+  file_name = sys.argv[1]
+except Exception as e:
+  print(e)
+  print(f"Usage: python3 {sys.argv[0]} <file_name>")
+  exit()
+  
 initial_time = time.time()
 
-seed = 0
+seed = 0.1
 
-left_interval = -1.5
-right_interval = 0
+left_interval = 1.1
+right_interval = 5
 num_steps_interval = 20000
 max_iter = 10000
 cutoff = 0.94
@@ -32,7 +39,8 @@ for c in c_values:
   sys.stdout.write(f"{(i/len(c_values)) *100}% Complete                \r")
   sys.stdout.flush()
   
-  f = lambda x: x**2 +c
+  f = lambda x: c*x if 0 <= x <= 1/c else c*(x-1)/(1-c) if 1/c <= x <= 1 and c > 1 else None
+  
   n_points, lyapunov_exponent = run_orbit_sim(seed, max_iter, f, c, cutoff,error)
   lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
