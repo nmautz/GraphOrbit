@@ -2,3 +2,4 @@
 *.pts
 env
 .DS_Store
+*.7z
