@@ -23,6 +23,7 @@ error = 0.001
 c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
 points = None
+lyapunov_exponents = {}
 i = 0
 for c in c_values:
 
@@ -32,7 +33,9 @@ for c in c_values:
   sys.stdout.flush()
   
   f = lambda x: x**2 +c
-  n_points = run_orbit_sim(seed, max_iter, f, c, cutoff,error)
+  f_prime = lambda x: 2*x
+  n_points, lyapunov_exponent = run_orbit_sim(seed, max_iter, f, f_prime, c, cutoff,error)
+  lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
     points = n_points
   else:
@@ -40,6 +43,8 @@ for c in c_values:
 
 #Save points to file
 np.savetxt(file_name, points, fmt='%f')
+#Save lyapunov exponents to file
+np.save("l_ex_"+file_name, lyapunov_exponents)  
 
 final_time = time.time()
 elapsed_seconds = final_time - initial_time
