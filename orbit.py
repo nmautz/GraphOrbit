@@ -7,7 +7,11 @@ def generate_c_values(left, right, num_steps):
 def num_in_range_of_x(num, x, error):
     return abs(num - x) <= error
 
-def orbit(x, max_iterations, func, func_prime,error):
+def numerical_derivative(f, x, h=1e-5):
+    #Compute the numerical derivative of function f at point x using central difference formula
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+def orbit(x, max_iterations, func,error):
     #output_file = open(filename, "w")
     plot_points = []
     last_x = None
@@ -17,7 +21,7 @@ def orbit(x, max_iterations, func, func_prime,error):
 
         x = func(x)
         iterations +=1
-        sum_lyapunov += np.log(np.abs(func_prime(x)))
+        sum_lyapunov += np.log(np.abs(numerical_derivative(func,x)))
         if last_x is not None:
             if num_in_range_of_x(x, last_x, error):
                 lyapunov_exponent = sum_lyapunov/iterations
@@ -35,8 +39,8 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-def run_orbit_sim(x, max_orbit, func, func_prime, c, cutoff,error):
-    plot_points,lyapunov_exponent = orbit(x, max_orbit, func, func_prime,error)
+def run_orbit_sim(x, max_orbit, func, c, cutoff,error):
+    plot_points,lyapunov_exponent = orbit(x, max_orbit, func,error)
     new_pp = []
     for point in plot_points:
         new_pp.append([c, point])

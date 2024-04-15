@@ -33,8 +33,7 @@ for c in c_values:
   sys.stdout.flush()
   
   f = lambda x: x**2 +c
-  f_prime = lambda x: 2*x
-  n_points, lyapunov_exponent = run_orbit_sim(seed, max_iter, f, f_prime, c, cutoff,error)
+  n_points, lyapunov_exponent = run_orbit_sim(seed, max_iter, f, c, cutoff,error)
   lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
     points = n_points
