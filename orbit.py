@@ -64,7 +64,7 @@ class OrbitSimProcess(multiprocessing.Process):
         self.x = x
         self.max_orbit = max_orbit
         self.c = c
-        self.func = lambda x: func(x,self.c)
+        self.func = func
         self.cutoff = cutoff
         self.error = error
         self.result_queue = result_queue

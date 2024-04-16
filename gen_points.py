@@ -6,7 +6,7 @@ from collections import Counter
 import sys
 import time
 import multiprocessing
-
+from functools import partial
 
 
 if __name__ == "__main__":
@@ -34,10 +34,20 @@ if __name__ == "__main__":
   lyapunov_exponents = {}
   i = 0
   orbit_result_tuple_arr = []
+
+  def f(x,c):
+    if 0 <= x <= 1/c:
+        return c*x
+    elif 1/c <= x <= 1 and c > 1:
+        return c*(x-1)/(1-c)
+    else:
+        return None
+
+
   for c_val in c_values:
     result_queue = multiprocessing.Manager().Queue()
-    f = lambda x,c: c*x if 0 <= x <= 1/c else c*(x-1)/(1-c) if 1/c <= x <= 1 and c > 1 else None
-    orbit_process = OrbitSimProcess(seed, max_iter, f, c_val, cutoff,error, result_queue)
+    f_partial = partial(f, c=c_val)
+    orbit_process = OrbitSimProcess(seed, max_iter, f_partial, c_val, cutoff,error, result_queue)
     orbit_result_tuple_arr.append((orbit_process, result_queue))
     
   num_processes = len(orbit_result_tuple_arr)
