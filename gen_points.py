@@ -1,4 +1,4 @@
-from orbit import run_orbit_sim, generate_c_values
+from orbit import generate_c_values, OrbitSimThread
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,21 +32,38 @@ c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 points = None
 lyapunov_exponents = {}
 i = 0
+threads = []
 for c in c_values:
-
-  # Print % finished
-  i += 1
-  sys.stdout.write(f"{(i/len(c_values)) *100}% Complete                \r")
-  sys.stdout.flush()
-  
   f = lambda x: c*x if 0 <= x <= 1/c else c*(x-1)/(1-c) if 1/c <= x <= 1 and c > 1 else None
+  orbit_thread = OrbitSimThread(seed, max_iter, f, c, cutoff,error)
+  threads.append(orbit_thread)
   
-  n_points, lyapunov_exponent = run_orbit_sim(seed, max_iter, f, c, cutoff,error)
+
+print(f"Starting {len(threads)} threads...")
+for thread in threads:
+  thread.start()
+
+print("Waiting for threads to finish...")
+
+for thread in threads:
+  thread.join()
+  #parse results n_points, lenoponov, c
+  results_tuple = thread.results()
+  n_points = results_tuple[0]
+  print(len(n_points))
+  lyapunov_exponent = results_tuple[1]
+  print(lyapunov_exponent)
+
+  c = results_tuple[2]
+  print(f"Thread c={c} finished.")
+
   lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
     points = n_points
   else:
     points = np.concatenate((points, n_points))
+
+print("Finished simulating all c values.")
 
 #Save points to file
 np.savetxt(file_name, points, fmt='%f')

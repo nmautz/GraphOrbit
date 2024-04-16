@@ -1,8 +1,5 @@
-from orbit import run_orbit_sim, generate_c_values
-import math
 import matplotlib.pyplot as plt
 import numpy as np
-from collections import Counter
 import sys
 
 
