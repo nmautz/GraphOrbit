@@ -2,6 +2,7 @@ import multiprocessing.process
 import numpy as np
 import copy
 import multiprocessing
+from functools import partial
 
 def generate_c_values(left, right, num_steps):
     c_values = np.linspace(left+0.001, right-0.001, num_steps)
@@ -58,13 +59,21 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
+def f(x,c):
+    if 0 <= x <= 1/c:
+        return c*x
+    elif 1/c <= x <= 1 and c > 1:
+        return c*(x-1)/(1-c)
+    else:
+        return None
+
 class OrbitSimProcess(multiprocessing.Process):
-    def __init__(self, x, max_orbit, func, c, cutoff, error, result_queue):
+    def __init__(self, x, max_orbit, c, cutoff, error, result_queue):
         super().__init__()
         self.x = x
         self.max_orbit = max_orbit
         self.c = c
-        self.func = func
+        self.func = partial(f, c=c)
         self.cutoff = cutoff
         self.error = error
         self.result_queue = result_queue
@@ -78,4 +87,4 @@ class OrbitSimProcess(multiprocessing.Process):
         new_pp = np.array(new_pp)
         # Only keep last 10%
         new_pp = new_pp[int(len(new_pp)*self.cutoff):]
-        self.result_queue.put(plot_points,lyapunov_exponent, c)
+        self.result_queue.put([plot_points,lyapunov_exponent, self.c])
