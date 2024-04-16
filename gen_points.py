@@ -38,25 +38,27 @@ for c_val in c_values:
   orbit_thread = OrbitSimThread(seed, max_iter, f, c_val, cutoff,error)
   threads.append(orbit_thread)
   
-
-print(f"Starting {len(threads)} threads...")
+num_threads = len(threads)
+print(f"Starting {num_threads} threads...")
 for thread in threads:
   thread.start()
   i=i+1
   if i%500 == 0:
-    print(f"Thread {i} started.")
+    print(f"Thread {i}/{num_threads} started.")
 
 print("Waiting for threads to finish...")
 
+i=0
 for thread in threads:
   thread.join()
+  i=i+1
   #parse results n_points, lenoponov, c
   results_tuple = thread.results()
   n_points = results_tuple[0]
   lyapunov_exponent = results_tuple[1]
 
   c = results_tuple[2]
-  print(f"Thread c={c} finished.")
+  print(f"Thread {i}/{num_threads} finished.")
 
   lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
