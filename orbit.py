@@ -1,6 +1,7 @@
+import multiprocessing.process
 import numpy as np
-import threading
 import copy
+import multiprocessing
 
 def generate_c_values(left, right, num_steps):
     c_values = np.linspace(left+0.001, right-0.001, num_steps)
@@ -57,8 +58,8 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-class OrbitSimThread(threading.Thread):
-    def __init__(self, x, max_orbit, func, c, cutoff, error):
+class OrbitSimProcess(multiprocessing.Process):
+    def __init__(self, x, max_orbit, func, c, cutoff, error, result_queue):
         super().__init__()
         self.x = x
         self.max_orbit = max_orbit
@@ -66,7 +67,7 @@ class OrbitSimThread(threading.Thread):
         self.func = lambda x: func(x,self.c)
         self.cutoff = cutoff
         self.error = error
-        self.result = None
+        self.result_queue = result_queue
 
     def run(self):
         plot_points, lyapunov_exponent = orbit(self.x, self.max_orbit, self.func, self.error)
@@ -77,9 +78,4 @@ class OrbitSimThread(threading.Thread):
         new_pp = np.array(new_pp)
         # Only keep last 10%
         new_pp = new_pp[int(len(new_pp)*self.cutoff):]
-        self.result = [new_pp, lyapunov_exponent, self.c]
-
-    def results(self):
-        if(self.result is None):
-            raise Exception("OrbitSimThread not run yet")
-        return self.result
+        self.result_queue.put(plot_points,lyapunov_exponent, c)
