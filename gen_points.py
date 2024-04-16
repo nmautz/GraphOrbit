@@ -22,8 +22,8 @@ initial_time = time.time()
 seed = 0.1
 
 left_interval = 1
-right_interval = 5
-num_steps_interval = 20000
+right_interval = 500
+num_steps_interval = 50000
 max_iter = 10000
 cutoff = 0.94
 error = 0.001
@@ -42,6 +42,9 @@ for c_val in c_values:
 print(f"Starting {len(threads)} threads...")
 for thread in threads:
   thread.start()
+  i=i+1
+  if i%500 == 0:
+    print(f"Thread {i} started.")
 
 print("Waiting for threads to finish...")
 
