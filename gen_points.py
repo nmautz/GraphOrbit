@@ -50,9 +50,7 @@ for thread in threads:
   #parse results n_points, lenoponov, c
   results_tuple = thread.results()
   n_points = results_tuple[0]
-  print(len(n_points))
   lyapunov_exponent = results_tuple[1]
-  print(lyapunov_exponent)
 
   c = results_tuple[2]
   print(f"Thread c={c} finished.")
