@@ -33,9 +33,9 @@ points = None
 lyapunov_exponents = {}
 i = 0
 threads = []
-for c in c_values:
-  f = lambda x: c*x if 0 <= x <= 1/c else c*(x-1)/(1-c) if 1/c <= x <= 1 and c > 1 else None
-  orbit_thread = OrbitSimThread(seed, max_iter, f, c, cutoff,error)
+for c_val in c_values:
+  f = lambda x,c: c*x if 0 <= x <= 1/c else c*(x-1)/(1-c) if 1/c <= x <= 1 and c > 1 else None
+  orbit_thread = OrbitSimThread(seed, max_iter, f, c_val, cutoff,error)
   threads.append(orbit_thread)
   
 

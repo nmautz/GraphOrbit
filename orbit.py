@@ -62,8 +62,8 @@ class OrbitSimThread(threading.Thread):
         super().__init__()
         self.x = x
         self.max_orbit = max_orbit
-        self.func = func
         self.c = c
+        self.func = lambda x: func(x,self.c)
         self.cutoff = cutoff
         self.error = error
         self.result = None
