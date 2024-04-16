@@ -58,7 +58,8 @@ for thread in threads:
   lyapunov_exponent = results_tuple[1]
 
   c = results_tuple[2]
-  print(f"Thread {i}/{num_threads} finished.")
+  if i%500 == 0:
+    print(f"Thread {i}/{num_threads} finished.")
 
   lyapunov_exponents[c] = lyapunov_exponent
   if points is None:
