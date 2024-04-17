@@ -45,7 +45,7 @@ if optimized:
   plt.scatter(lx, ly, marker='o', color='green', label='Lyapunov Exponents', s=0.5, alpha=1)
 else:
   plt.scatter(x, y, marker='o', color='blue', label='Points', s=desired_point_size, alpha=0.03)
-  plt.scatter(lx, ly, marker='o', color='green', label='Lyapunov Exponents', s=0.2, alpha=0.2)
+  plt.scatter(lx, ly, marker='o', color='red', label='Lyapunov Exponents', s=0.2, alpha=0.2)
 # Add labels and title
 plt.xlabel('c')
 plt.ylabel('p')

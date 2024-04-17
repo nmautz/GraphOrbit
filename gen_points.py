@@ -21,7 +21,7 @@ if __name__ == "__main__":
   try:
     display_after = int(sys.argv[2])
   except Exception as e:
-    display_after = 0
+    display_after = -1
     
   initial_time = time.time()
   left_interval = 1
@@ -76,7 +76,7 @@ if __name__ == "__main__":
   print(f"Finished in {elapsed_seconds} seconds.")
 
 
-  if display_after > 0:
+  if display_after >= 0:
     # run cli input
     print("Displaying points...")
     subprocess.run(["python3", 'display_points.py', file_name, str(display_after)])
