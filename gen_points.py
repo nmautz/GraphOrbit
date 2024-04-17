@@ -6,6 +6,7 @@ from collections import Counter
 import sys
 import time
 import multiprocessing
+import subprocess
 
 
 if __name__ == "__main__":
@@ -16,11 +17,16 @@ if __name__ == "__main__":
     print(e)
     print(f"Usage: python3 {sys.argv[0]} <file_name>")
     exit()
+
+  try:
+    display_after = int(sys.argv[2])
+  except Exception as e:
+    display_after = 0
     
   initial_time = time.time()
-  left_interval = 1
-  right_interval = 100
-  num_steps_interval = 2000
+  left_interval = 44500
+  right_interval = 45000
+  num_steps_interval = 10000
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
@@ -68,3 +74,9 @@ if __name__ == "__main__":
   final_time = time.time()
   elapsed_seconds = final_time - initial_time
   print(f"Finished in {elapsed_seconds} seconds.")
+
+
+  if display_after > 0:
+    # run cli input
+    print("Displaying points...")
+    subprocess.run(["python3", 'display_points.py', file_name])
