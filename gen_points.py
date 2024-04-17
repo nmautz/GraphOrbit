@@ -20,7 +20,7 @@ if __name__ == "__main__":
   initial_time = time.time()
   left_interval = 1
   right_interval = 10
-  num_steps_interval = 30
+  num_steps_interval = 2000
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 

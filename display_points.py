@@ -23,8 +23,20 @@ lx = np.array(list(lyapunov_exponents.keys()))
 ly = np.array(list(lyapunov_exponents.values()))
 
 
+density_multiplier = 2
+# get range of x values
+x_min = min(x)
+x_max = max(x)
+# get count of y values
+y_count = len(y)
+
+desired_point_size = ((x_max - x_min) / y_count) * 30000 * density_multiplier
+print(desired_point_size)
+
+
+
 # Create a scatter plot with variable marker size
-plt.scatter(x, y, marker='o', color='blue', label='Points', s=0.02, alpha=0.03)
+plt.scatter(x, y, marker='o', color='blue', label='Points', s=desired_point_size, alpha=0.03)
 plt.scatter(lx, ly, marker='o', color='red', label='Lyapunov Exponents', s=0.2, alpha=0.2)
 # Add labels and title
 plt.xlabel('c')
