@@ -13,6 +13,11 @@ except Exception as e:
   print(f"Usage: python3 {sys.argv[0]} <file_name>")
   exit()
 
+try:
+  optimized = int(sys.argv[2])
+except:
+  optimized = 0
+
 
 # Extract x and y coordinates
 x = [point[0] for point in points]
@@ -35,8 +40,11 @@ desired_point_size = min(desired_point_size, 15)
 
 
 # Create a scatter plot with variable marker size
-plt.scatter(x, y, marker='o', color='blue', label='Points', s=desired_point_size, alpha=0.03)
-plt.scatter(lx, ly, marker='o', color='red', label='Lyapunov Exponents', s=0.2, alpha=0.2)
+if optimized:
+  plt.hexbin(x, y, gridsize=optimized, cmap='viridis', alpha=1, mincnt=1)  # Adjust gridsize as needed
+else:
+  plt.scatter(x, y, marker='o', color='blue', label='Points', s=desired_point_size, alpha=0.03)
+  plt.scatter(lx, ly, marker='o', color='red', label='Lyapunov Exponents', s=0.2, alpha=0.2)
 # Add labels and title
 plt.xlabel('c')
 plt.ylabel('p')
