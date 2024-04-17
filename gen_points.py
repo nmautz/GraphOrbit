@@ -39,6 +39,9 @@ if __name__ == "__main__":
     result_queue = result_manager.Queue()
     result_queue_list.append(result_queue)
     arg_list_list.append((c_val, result_queue))
+    i+=1
+    if i % 1000 == 0:
+      print(f"Generated {i}/{len(c_values)} arguments")
   print("Starting processes")
   pool.starmap(simulate_orbit, arg_list_list)
 
