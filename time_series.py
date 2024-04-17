@@ -4,11 +4,12 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
   
-seed_1 = 0.4
-seed_2 = 0.401
-c = 5
+seed_1 = 0.300000001
+seed_2 = 0.3
+c = 9
 
-max_orbit = 10
+max_orbit = 200
+drop_first_values = 100
 
 points_1, _,_ = simulate_orbit(c, seed_1, max_orbit=max_orbit, error=0, cutoff=0)
 
@@ -16,11 +17,11 @@ points_2, _,_ = simulate_orbit(c, seed_2, max_orbit=max_orbit, error=0, cutoff=0
 point_1_parsed = []
 point_2_parsed = []
 #throw out c values and replace with step num
-for i in range(0, len(points_1)):
+for i in range(drop_first_values, len(points_1)):
     point = points_1[i]
     point_1_parsed.append([i, point[1]])
 
-for i in range(0, len(points_2)):
+for i in range(drop_first_values, len(points_2)):
     point = points_2[i]
     point_2_parsed.append([i, point[1]])
 
