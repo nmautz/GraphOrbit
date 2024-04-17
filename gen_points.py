@@ -18,15 +18,10 @@ if __name__ == "__main__":
     exit()
     
   initial_time = time.time()
-
-  seed = 0.1
-
   left_interval = 1
-  right_interval = 500
-  num_steps_interval = 4000
-  max_iter = 10000
-  cutoff = 0.94
-  error = 0.001
+  right_interval = 100000
+  num_steps_interval = 300000
+
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
   points = None
@@ -43,7 +38,7 @@ if __name__ == "__main__":
   for c_val in c_values:
     result_queue = result_manager.Queue()
     result_queue_list.append(result_queue)
-    arg_list_list.append((seed, max_iter, c_val, cutoff, error, result_queue))
+    arg_list_list.append((c_val, result_queue))
   print("Starting processes")
   pool.starmap(simulate_orbit, arg_list_list)
 

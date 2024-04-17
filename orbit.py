@@ -67,7 +67,15 @@ def f(x,c):
     else:
         return None
 
-def simulate_orbit(x, max_orbit, c, cutoff, error, result_queue):
+def simulate_orbit(c, result_queue):
+    max_orbit = 10000
+    cutoff = 0.94
+    error = 0.001
+    x = 0.1
+
+
+
+
     func = partial(f, c=c)
     plot_points, lyapunov_exponent = orbit(x, max_orbit, func, error)
     new_pp = []
