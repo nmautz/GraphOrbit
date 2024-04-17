@@ -31,8 +31,7 @@ x_max = max(x)
 y_count = len(y)
 
 desired_point_size = ((x_max - x_min) / y_count) * 30000 * density_multiplier
-print(desired_point_size)
-
+desired_point_size = min(desired_point_size, 15)
 
 
 # Create a scatter plot with variable marker size
