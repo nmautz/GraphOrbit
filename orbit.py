@@ -67,24 +67,14 @@ def f(x,c):
     else:
         return None
 
-class OrbitSimProcess(multiprocessing.Process):
-    def __init__(self, x, max_orbit, c, cutoff, error, result_queue):
-        super().__init__()
-        self.x = x
-        self.max_orbit = max_orbit
-        self.c = c
-        self.func = partial(f, c=c)
-        self.cutoff = cutoff
-        self.error = error
-        self.result_queue = result_queue
-
-    def run(self):
-        plot_points, lyapunov_exponent = orbit(self.x, self.max_orbit, self.func, self.error)
-        new_pp = []
-        for point in plot_points:
-            new_pp.append([self.c, point])
-
-        new_pp = np.array(new_pp)
-        # Only keep last 10%
-        new_pp = new_pp[int(len(new_pp)*self.cutoff):]
-        self.result_queue.put([plot_points,lyapunov_exponent, self.c])
+def simulate_orbit(x, max_orbit, c, cutoff, error, result_queue):
+    func = partial(f, c=c)
+    plot_points, lyapunov_exponent = orbit(x, max_orbit, func, error)
+    new_pp = []
+    for point in plot_points:
+        new_pp.append([c, point])
+    
+    new_pp = np.array(new_pp)
+    new_pp = new_pp[int(len(new_pp)*cutoff):]  # Only keep last cutoff portion
+    
+    result_queue.put([new_pp, lyapunov_exponent, c])

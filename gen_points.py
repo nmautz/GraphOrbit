@@ -1,4 +1,4 @@
-from orbit import generate_c_values, OrbitSimProcess
+from orbit import generate_c_values, simulate_orbit
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
   left_interval = 1
   right_interval = 500
-  num_steps_interval = 2000
+  num_steps_interval = 4000
   max_iter = 10000
   cutoff = 0.94
   error = 0.001
@@ -32,30 +32,28 @@ if __name__ == "__main__":
   points = None
   lyapunov_exponents = {}
   i = 0
-  orbit_result_tuple_arr = []
+  result_queue_list = []
 
 
 
   result_manager = multiprocessing.Manager()
-  print(f"Creating {len(c_values)} processes...")
+  pool = multiprocessing.Pool(processes=multiprocessing.cpu_count() - 1)
+  arg_list_list = []
+  print("Generating arguments")
   for c_val in c_values:
     result_queue = result_manager.Queue()
-    orbit_process = OrbitSimProcess(seed, max_iter, c_val, cutoff,error, result_queue)
-    orbit_result_tuple_arr.append((orbit_process, result_queue))
-    
-  num_processes = len(orbit_result_tuple_arr)
-  print(f"Starting {num_processes} processes...")
-  for orbit_process,_ in orbit_result_tuple_arr:
-    orbit_process.start()
-    i=i+1
-    if i%500 == 0:
-      print(f"Thread {i}/{num_processes} started.")
+    result_queue_list.append(result_queue)
+    arg_list_list.append((seed, max_iter, c_val, cutoff, error, result_queue))
+  print("Starting processes")
+  pool.starmap(simulate_orbit, arg_list_list)
 
   print("Waiting for processes to finish...")
+  pool.close()
+  pool.join()
 
   i=0
-  for orbit_process, result_queue in orbit_result_tuple_arr:
-    orbit_process.join()
+  print(f"{len(result_queue_list)} results")
+  for result_queue in result_queue_list:
     i=i+1
     #parse results n_points, lenoponov, c
     results_tuple = result_queue.get()
@@ -63,8 +61,6 @@ if __name__ == "__main__":
     lyapunov_exponent = results_tuple[1]
 
     c = results_tuple[2]
-    if i%500 == 0:
-      print(f"Thread {i}/{num_processes} finished.")
 
     lyapunov_exponents[c] = lyapunov_exponent
     if points is None:
