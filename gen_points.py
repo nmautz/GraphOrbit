@@ -51,6 +51,7 @@ if __name__ == "__main__":
 
   i=0
   print(f"{len(result_queue_list)} results")
+  print("Parsing results")
   for result_queue in result_queue_list:
     i=i+1
     #parse results n_points, lenoponov, c
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     else:
       points = np.concatenate((points, n_points))
 
-  print("Finished simulating all c values.")
+  print("Saving to disk...")
 
   #Save points to file
   np.savetxt(file_name, points, fmt='%f')
