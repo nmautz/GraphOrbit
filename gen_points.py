@@ -55,18 +55,18 @@ if __name__ == "__main__":
 
   i=0
   print("Parsing results")
+  number_point_arrays = len(results)
+  points_list = np.empty(number_point_arrays, dtype=object)
   for n_points, lyapunov_exponent, c in results:
-    i=i+1
     #parse results n_points, lenoponov, c
     lyapunov_exponents[c] = lyapunov_exponent
-    if points is None:
-      points = n_points
-    else:
-      points = np.concatenate((points, n_points))
+    points_list[i] = n_points
 
+    i=i+1
     if i % 1000 == 0:
       print(f"Parsed {i}/{len(results)} results")
 
+  points = np.concatenate(points_list)
   print("Saving to disk...")
 
   #Save points to file
