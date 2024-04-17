@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from orbit import f
+import sys
 
 # Define the cobweb function
 def cobweb_iterate(x0, r, n_iter):
@@ -20,6 +21,16 @@ def cobweb_iterate(x0, r, n_iter):
 x0 = 0.1  # Initial value
 c = 1.1  # Parameter value
 n_iter = 50  # Number of iterations
+
+try:
+    x0 = float(sys.argv[1])
+    c = float(sys.argv[2])
+    n_iter = int(sys.argv[3])
+except Exception as e:
+    print("Error with params, using defaults")
+    print(f"x0={x0}")
+    print(f"c={c}")
+    print(f"n_iter={n_iter}")
 
 # Generate cobweb data
 x_values, y_values = cobweb_iterate(x0, c, n_iter)
