@@ -39,11 +39,11 @@ if __name__ == "__main__":
     if i % 1000 == 0:
       print(f"Generated {i}/{len(c_values)} arguments")
   print("Starting processes")
+  print("Waiting for processes to finish...")
 
   #pool.starmap(simulate_orbit, arg_list_list)
   results = (pool.starmap(simulate_orbit, arg_list_list))
 
-  print("Waiting for processes to finish...")
   pool.close()
   pool.join()
 
