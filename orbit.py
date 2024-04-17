@@ -65,14 +65,14 @@ def truncate_num(num, digits):
 def f(x,c):
 
     if not c > 1:
-        return None
+        raise Exception("c must be greater than 1")
 
     if 0 <= x <= 1/c:
         return c*x
     elif 1/c <= x <= 1:
         return c*(x-1)/(1-c)
     else:
-        return None
+        raise Exception("x must be between 0 and 1")
 
 def simulate_orbit(c, x=0.1, max_orbit = 10000, error=0.001, cutoff=0.94):
     func = partial(f, c=c)
