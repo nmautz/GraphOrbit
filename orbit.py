@@ -85,4 +85,4 @@ def simulate_orbit(c, result_queue):
     new_pp = np.array(new_pp)
     new_pp = new_pp[int(len(new_pp)*cutoff):]  # Only keep last cutoff portion
     
-    result_queue.put([new_pp, lyapunov_exponent, c])
+    return tuple([new_pp, lyapunov_exponent, c])

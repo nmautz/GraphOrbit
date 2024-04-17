@@ -19,8 +19,8 @@ if __name__ == "__main__":
     
   initial_time = time.time()
   left_interval = 1
-  right_interval = 100000
-  num_steps_interval = 300000
+  right_interval = 10
+  num_steps_interval = 30
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
@@ -43,7 +43,9 @@ if __name__ == "__main__":
     if i % 1000 == 0:
       print(f"Generated {i}/{len(c_values)} arguments")
   print("Starting processes")
-  pool.starmap(simulate_orbit, arg_list_list)
+
+  #pool.starmap(simulate_orbit, arg_list_list)
+  results = (pool.starmap(simulate_orbit, arg_list_list))
 
   print("Waiting for processes to finish...")
   pool.close()
@@ -52,15 +54,9 @@ if __name__ == "__main__":
   i=0
   print(f"{len(result_queue_list)} results")
   print("Parsing results")
-  for result_queue in result_queue_list:
+  for n_points, lyapunov_exponent, c in results:
     i=i+1
     #parse results n_points, lenoponov, c
-    results_tuple = result_queue.get()
-    n_points = results_tuple[0]
-    lyapunov_exponent = results_tuple[1]
-
-    c = results_tuple[2]
-
     lyapunov_exponents[c] = lyapunov_exponent
     if points is None:
       points = n_points
