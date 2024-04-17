@@ -64,6 +64,9 @@ if __name__ == "__main__":
     else:
       points = np.concatenate((points, n_points))
 
+    if i % 1000 == 0:
+      print(f"Parsed {i}/{len(results)} results")
+
   print("Saving to disk...")
 
   #Save points to file
