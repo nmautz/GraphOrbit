@@ -67,7 +67,7 @@ def f(x,c):
     else:
         return None
 
-def simulate_orbit(c, result_queue):
+def simulate_orbit(c):
     max_orbit = 10000
     cutoff = 0.94
     error = 0.001

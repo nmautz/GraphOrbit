@@ -27,18 +27,14 @@ if __name__ == "__main__":
   points = None
   lyapunov_exponents = {}
   i = 0
-  result_queue_list = []
 
 
 
-  result_manager = multiprocessing.Manager()
   pool = multiprocessing.Pool(processes=multiprocessing.cpu_count() - 1)
   arg_list_list = []
   print("Generating arguments")
   for c_val in c_values:
-    result_queue = result_manager.Queue()
-    result_queue_list.append(result_queue)
-    arg_list_list.append((c_val, result_queue))
+    arg_list_list.append([c_val])
     i+=1
     if i % 1000 == 0:
       print(f"Generated {i}/{len(c_values)} arguments")
@@ -52,7 +48,6 @@ if __name__ == "__main__":
   pool.join()
 
   i=0
-  print(f"{len(result_queue_list)} results")
   print("Parsing results")
   for n_points, lyapunov_exponent, c in results:
     i=i+1
