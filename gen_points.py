@@ -24,9 +24,9 @@ if __name__ == "__main__":
     display_after = 0
     
   initial_time = time.time()
-  left_interval = 44500
+  left_interval = 1
   right_interval = 45000
-  num_steps_interval = 10000
+  num_steps_interval = 1000
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 
@@ -79,4 +79,4 @@ if __name__ == "__main__":
   if display_after > 0:
     # run cli input
     print("Displaying points...")
-    subprocess.run(["python3", 'display_points.py', file_name])
+    subprocess.run(["python3", 'display_points.py', file_name, str(display_after)])
