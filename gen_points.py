@@ -7,9 +7,8 @@ import sys
 import time
 import multiprocessing
 import subprocess
-
-
-if __name__ == "__main__":
+import cProfile
+def main():
   # Get argv
   try:
     file_name = sys.argv[1]
@@ -83,3 +82,6 @@ if __name__ == "__main__":
     # run cli input
     print("Displaying points...")
     subprocess.run(["python3", 'display_points.py', file_name, str(display_after)])
+
+if __name__ == "__main__":
+  main()
