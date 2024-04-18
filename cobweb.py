@@ -9,7 +9,7 @@ def cobweb_iterate(x0, r, n_iter):
     x_values = [x0]
     y_values = [f(x0, r)]
     
-    for _ in range(1, n_iter):
+    for i in range(1, n_iter):
         x = y_values[-1]
         y = f(x, r)
         
@@ -19,7 +19,8 @@ def cobweb_iterate(x0, r, n_iter):
             # get list of all points between now and the duplicate
             duplicate_index = x_values.index(x)
             cycle_points = x_values[duplicate_index:]
-            print(f"Cycle detected at ({x},{y}) with {len(cycle_points)/3} points")
+            print(f"Cycle detected at iteration #{i} with {len(cycle_points)/3} points")
+            print(f"Starting Point: {({x},{y}) }")
             break
         
         x_values.extend([x, y])
