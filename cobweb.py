@@ -35,11 +35,20 @@ except Exception as e:
 # Generate cobweb data
 x_values, y_values = cobweb_iterate(x0, c, n_iter)
 
+#graph function on plot
+xs = np.linspace(0, 1, 100)
+ys = []
+for x in xs:
+    ys.append(f(x, c))
+
+
 # Plot cobweb diagram
+plt.grid(True)
 plt.plot(x_values, y_values, 'b-', linewidth=0.5)
 plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
 plt.title('Cobweb Diagram(c={})'.format(c))
 plt.xlabel('x')
 plt.ylabel('f(x)')
-plt.grid(True)
+plt.plot(xs, ys, 'r-', linewidth=2)
+
 plt.show()
