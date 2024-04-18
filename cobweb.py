@@ -55,5 +55,5 @@ xs = np.linspace(0, 1, 100)
 ys = [f(x, c) for x in xs]
 
 # Create animation
-ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 2), interval=100)
+ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 2), interval=100, repeat=False)
 plt.show()
