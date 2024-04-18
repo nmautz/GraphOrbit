@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from orbit import f
 import sys
 
@@ -35,20 +36,24 @@ except Exception as e:
 # Generate cobweb data
 x_values, y_values = cobweb_iterate(x0, c, n_iter)
 
+# Define function to update plot
+def update(frame):
+    if frame == 0:
+        return
+    
+    plt.clf()  # Clear the previous plot
+    plt.grid(True)
+    plt.plot(x_values[:frame], y_values[:frame], 'b-', linewidth=0.4)
+    plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
+    plt.title('Cobweb Diagram (c={})'.format(c))
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
+    plt.plot(xs, ys, 'r-', linewidth=1)
+
 #graph function on plot
 xs = np.linspace(0, 1, 100)
-ys = []
-for x in xs:
-    ys.append(f(x, c))
+ys = [f(x, c) for x in xs]
 
-
-# Plot cobweb diagram
-plt.grid(True)
-plt.plot(x_values, y_values, 'b-', linewidth=0.1)
-plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
-plt.title('Cobweb Diagram(c={})'.format(c))
-plt.xlabel('x')
-plt.ylabel('f(x)')
-plt.plot(xs, ys, 'r-', linewidth=1)
-
+# Create animation
+ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 2), interval=100)
 plt.show()
