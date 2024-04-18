@@ -62,15 +62,21 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
+function_error = 0.001
+def round_to_function_error(num):
+    rounded_num = round(num / function_error) * function_error
+    return rounded_num
+
+
 def f(x,c):
 
     if not c > 1:
         raise Exception("c must be greater than 1")
 
     if 0 <= x <= 1/c:
-        return c*x
+        return round_to_function_error(c*x)
     elif 1/c <= x <= 1:
-        return c*(x-1)/(1-c)
+        return round_to_function_error(c*(x-1)/(1-c))
     else:
         raise Exception("x must be between 0 and 1")
 
