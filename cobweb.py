@@ -18,14 +18,21 @@ def cobweb_iterate(x0, r, n_iter):
 
         # check if x y has been seen before
         if x in x_values[:-2] and y in y_values[:-2]:
-            # get list of all points between now and the duplicate
+            print(x_values)
             duplicate_index = x_values.index(x)
             cycle_points_xs = x_values[duplicate_index:]
-            cycle_points_ys = y_values[duplicate_index:]
             print(f"Cycle detected at iteration #{i} with {len(cycle_points_xs)/3} points")
             print(f"Starting Point: {({x},{y}) }")
+            x_values.extend([x, y])
+            y_values.extend([y, y])
+            x = y_values[-1]
+            y = f(x, r)
+            x_values.extend([x, y])
+            y_values.extend([y, y])
+            # get list of all points between now and the duplicate
+            cycle_points_xs = x_values[duplicate_index:]
+            cycle_points_ys = y_values[duplicate_index:]
             break
-        
         x_values.extend([x, y])
         y_values.extend([y, y])
     return x_values, y_values, cycle_points_xs, cycle_points_ys
