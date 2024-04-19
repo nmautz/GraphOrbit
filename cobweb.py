@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from orbit import f
+from orbit import f, truncate_num
 import sys
 
 # Define the cobweb function
@@ -14,6 +14,9 @@ def cobweb_iterate(x0, r, n_iter):
     for i in range(1, n_iter):
         x = y_values[-1]
         y = f(x, r)
+
+        if i % 5000 == 0:
+            print(f"Iteration #{i}/{n_iter} ({truncate_num(100*(i/n_iter),1)}%)")
         
 
         # check if x y has been seen before
