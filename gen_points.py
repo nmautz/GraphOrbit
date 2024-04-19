@@ -24,8 +24,8 @@ def main():
     
   initial_time = time.time()
   left_interval = 1
-  right_interval = 45000
-  num_steps_interval = 1000
+  right_interval = 10
+  num_steps_interval = 5000
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)
 

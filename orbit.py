@@ -62,7 +62,7 @@ def truncate_num(num, digits):
     return float(f"{num:.{digits}f}")
     
 
-function_error = 0.0001
+function_error = 0.00000001
 def round_to_function_error(num):
     rounded_num = round(num / function_error) * function_error
     return rounded_num
