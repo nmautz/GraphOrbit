@@ -78,7 +78,7 @@ plt.show()
 if(cycle_points_xs != []):
     plt.figure(2)
     plt.title('Cycle Points (c={})'.format(c))
-    plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=1)
+    plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=0.4)
     plt.plot([0, 1], [0, 1], 'k--', linewidth=0.4)  # Plot y=x line
     plt.plot(xs, ys, 'r-', linewidth=1)
     plt.show()
