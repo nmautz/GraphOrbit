@@ -58,12 +58,11 @@ x_values, y_values, cycle_points_xs, cycle_points_ys = cobweb_iterate(x0, c, n_i
 def update(frame):
     if frame == 0:
         return
-    
     plt.clf()  # Clear the previous plot
     plt.grid(True)
     plt.plot(x_values[:frame], y_values[:frame], 'b-', linewidth=0.4)
     plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
-    plt.title('Cobweb Diagram (c={})'.format(c))
+    plt.title(f"Seed: {x0} C:{c}\nStep:{frame}/{len(x_values)}")
     plt.xlabel('x')
     plt.ylabel('f(x)')
     plt.plot(xs, ys, 'r-', linewidth=1)
