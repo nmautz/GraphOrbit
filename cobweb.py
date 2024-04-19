@@ -8,6 +8,8 @@ import sys
 def cobweb_iterate(x0, r, n_iter):
     x_values = [x0]
     y_values = [f(x0, r)]
+    cycle_points_xs = []
+    cycle_points_ys = []
     
     for i in range(1, n_iter):
         x = y_values[-1]
@@ -67,12 +69,14 @@ ys = [f(x, c) for x in xs]
 # Create animation
 ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=False)
 plt.show()
-
-plt.figure(2)
-plt.title('Cycle Points (c={})'.format(c))
-plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=1)
-plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
-plt.plot(xs, ys, 'r-', linewidth=1)
-plt.show()
+if(cycle_points_xs != []):
+    plt.figure(2)
+    plt.title('Cycle Points (c={})'.format(c))
+    plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=1)
+    plt.plot([0, 1], [0, 1], 'k--', linewidth=0.4)  # Plot y=x line
+    plt.plot(xs, ys, 'r-', linewidth=1)
+    plt.show()
+else:
+    print(f"No cycle detected in first {n_iter}")
 
 
