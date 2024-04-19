@@ -74,9 +74,6 @@ def update(frame):
 xs = np.linspace(0, 1, 100)
 ys = [f(x, c) for x in xs]
 
-# Create animation
-ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=False)
-plt.show()
 if(cycle_points_xs != []):
     plt.figure(2)
     plt.title('Cycle Points (c={})'.format(c))
@@ -86,5 +83,10 @@ if(cycle_points_xs != []):
     plt.show()
 else:
     print(f"No cycle detected in first {n_iter}")
+
+# Create animation
+ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=False)
+plt.show()
+
 
 
