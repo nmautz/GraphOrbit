@@ -1,33 +1,23 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+from orbit import simulate_orbit
 
 # Get argv
 try:
-    file_name = sys.argv[1]
-    points = np.loadtxt(file_name)
-except Exception as e:
-    print(e)
-    print(f"Usage: python3 {sys.argv[0]} <file_name>")
+    seed = float(sys.argv[1])
+    c = float(sys.argv[2])
+except:
+    print("Usage: python3 seed c")
     exit()
 
-# Extract x and y coordinates
-x = [point[0] for point in points]
-y = [point[1] for point in points]
+points, _, _ = simulate_orbit(c, seed, cutoff=0, max_orbit=10000000)
 
-# Find range of x 
-x_min = min(x)
-x_max = max(x)
+point_y_values = [p[1] for p in points]
 
-# Calculate histogram
-hist, bins = np.histogram(y, bins=100)  # Adjust the number of bins as needed
+# normalize y values 
+point_y_values = [y/max(point_y_values) for y in point_y_values]
 
-# Normalize the histogram
-hist = hist / np.sum(hist)
-
-# Plot histogram
-plt.bar(bins[:-1], hist, width=np.diff(bins), align='edge')
-plt.xlabel('X')
-plt.ylabel('Frequency')
-plt.title(f'Normalized Histogram of X Values, {x_min} <= c <= {x_max}')
+# plot histogram of y values
+plt.hist(point_y_values, bins=100)
 plt.show()
