@@ -5,3 +5,4 @@ env
 *.7z
 *.npy
 *.pyc
+!requirements.txt
