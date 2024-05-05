@@ -51,7 +51,7 @@ plt.xlabel('c')
 plt.ylabel('p')
 
 # Show the legend
-plt.legend()
+#plt.legend()
 
 # Show the plot
 plt.grid(True)
