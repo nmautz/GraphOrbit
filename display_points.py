@@ -38,6 +38,8 @@ y_count = len(y)
 desired_point_size = (1/y_count) * density_multiplier
 desired_point_size = min(desired_point_size, 15)
 
+# Hide the plot
+plt.grid(False)
 
 # Create a scatter plot with variable marker size
 if optimized:
@@ -53,6 +55,5 @@ plt.ylabel('p')
 # Show the legend
 #plt.legend()
 
-# Show the plot
-plt.grid(True)
+
 plt.show()
