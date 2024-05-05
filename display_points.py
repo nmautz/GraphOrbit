@@ -28,14 +28,14 @@ lx = np.array(list(lyapunov_exponents.keys()))
 ly = np.array(list(lyapunov_exponents.values()))
 
 
-density_multiplier = 2
+density_multiplier = 40000
 # get range of x values
 x_min = min(x)
 x_max = max(x)
 # get count of y values
 y_count = len(y)
 
-desired_point_size = ((x_max - x_min) / y_count) * 30000 * density_multiplier
+desired_point_size = (1/y_count) * density_multiplier
 desired_point_size = min(desired_point_size, 15)
 
 
