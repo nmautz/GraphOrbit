@@ -23,8 +23,8 @@ def main():
     display_after = -1
     
   initial_time = time.time()
-  left_interval = 1
-  right_interval = 1.02
+  left_interval = 1.01
+  right_interval = 2
   num_steps_interval = 5000
 
   c_values = generate_c_values(left_interval, right_interval, num_steps_interval)

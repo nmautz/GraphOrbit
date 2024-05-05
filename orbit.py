@@ -27,7 +27,19 @@ def numerical_derivative(f, x, h=1e-5):
     finally:
         return value
 
-def orbit(x, max_iterations, func,error):
+
+def f_prime(x,c):
+    if x > 1 or x < 0:
+        raise Exception("Out of bounds f_prime")
+
+    if x < (1/c):
+        return c
+    else:
+        return (c/1-c)
+
+    
+
+def orbit(x, max_iterations, func, func_prime,error):
     #output_file = open(filename, "w")
     plot_points = []
     last_x = None
@@ -35,7 +47,7 @@ def orbit(x, max_iterations, func,error):
     iterations = 0
     for i in range(0,max_iterations):
         x = func(x)
-        deriv_val = numerical_derivative(func, x)
+        deriv_val = func_prime(x)
         if deriv_val is not None:
             iterations +=1
             sum_lyapunov += np.log(np.abs(deriv_val))
@@ -82,7 +94,8 @@ def f(x,c):
 
 def simulate_orbit(c, x=0.1, max_orbit = 10000, error=0.001, cutoff=0.94):
     func = partial(f, c=c)
-    plot_points, lyapunov_exponent = orbit(x, max_orbit, func, error)
+    func_prime = partial(f_prime, c=c)
+    plot_points, lyapunov_exponent = orbit(x, max_orbit, func, func_prime, error)
     new_pp = []
     for point in plot_points:
         new_pp.append([c, point])
