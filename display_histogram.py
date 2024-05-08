@@ -12,7 +12,7 @@ except:
     print("Usage: python3 seed c max_orbit")
     exit()
 
-points, _, _ = simulate_orbit(c, seed, cutoff=0, max_orbit=10000)
+points, _, _ = simulate_orbit(c, seed, cutoff=0.94, max_orbit=10000)
 
 point_y_values = [p[1] for p in points]
 
