@@ -85,8 +85,26 @@ if(cycle_points_xs != []):
 else:
     print(f"No cycle detected in first {n_iter}")
 
-# Create animation
-ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=True)
+try:
+    show_anim = sys.argv[4]
+except Exception as e:
+    print("Showing no anim (default)")
+    show_anim = 0
+
+
+if show_anim:
+    # Create animation
+    ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=5, repeat=True)
+else:
+    # graph all normally
+    plt.grid(True)
+    plt.plot(x_values, y_values, 'b-', linewidth=0.4)
+    plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
+    plt.title(f"Seed: {x0} C:{c}\n")
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
+    plt.plot(xs, ys, 'r-', linewidth=1)
+
 plt.show()
 
 

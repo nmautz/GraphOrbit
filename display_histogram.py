@@ -7,8 +7,9 @@ from orbit import simulate_orbit
 try:
     seed = float(sys.argv[1])
     c = float(sys.argv[2])
+    max_orbit = int(sys.argv[3])
 except:
-    print("Usage: python3 seed c")
+    print("Usage: python3 seed c max_orbit")
     exit()
 
 points, _, _ = simulate_orbit(c, seed, cutoff=0, max_orbit=10000)
