@@ -35,7 +35,7 @@ print(f"Plotting {len(point_1_parsed) + len(point_2_parsed)} points")
 
 plt.plot(point_1_x, point_1_y, label=f"Seed: {seed_1}", color="red", alpha=0.5)
 plt.plot(point_2_x, point_2_y, label=f"Seed: {seed_2}", color="blue", alpha=0.5)
-plt.title(f"C: {c}\nVariance: {variance}")
+plt.title(f"C: {c}")
 plt.xlabel('Step')
 plt.ylabel('p')
 plt.legend()
