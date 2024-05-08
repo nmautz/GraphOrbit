@@ -19,4 +19,5 @@ point_y_values = [p[1] for p in points]
 
 # plot histogram of y values
 plt.hist(point_y_values, bins=100)
+plt.title(f"Seed: {seed}\nc:{c}\niterations:{max_orbit}")
 plt.show()
