@@ -41,10 +41,17 @@ def orbit(x, max_iterations, func,error):
             sum_lyapunov += np.log(np.abs(deriv_val))
         else:
             print("ERROR: derivitive is None")
-        if last_x is not None and error != 0:
-            if num_in_range_of_x(x, last_x, error):
-                lyapunov_exponent = sum_lyapunov/iterations
-                return plot_points, lyapunov_exponent
+        if x in plot_points:
+            index = plot_points.index(x)
+            plot_points_cycle = plot_points[index:]
+            lyapunov_exponent = sum_lyapunov/iterations
+            return plot_points_cycle, lyapunov_exponent
+        else:
+
+            if last_x is not None and error != 0:
+                if num_in_range_of_x(x, last_x, error):
+                    lyapunov_exponent = sum_lyapunov/iterations
+                    return plot_points, lyapunov_exponent
 
         last_x = x
         #output_file.write(f"{x}\n")
