@@ -4,9 +4,9 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
   
-seed_1 = 0.300000001
-seed_2 = 0.3
-c = 9
+seed_1 = 0.3000001
+seed_2 = 0.3000002
+c = 2
 
 max_orbit = 200
 drop_first_values = 100
@@ -28,11 +28,16 @@ for i in range(drop_first_values, len(points_2)):
 point_1_x, point_1_y = zip(*point_1_parsed)
 point_2_x, point_2_y = zip(*point_2_parsed)
 
+# Calculate variance
+variance = np.var(point_1_y) - np.var(point_2_y)
+
+print(f"Variance between the two sets of points: {variance}")
+
 print(f"Plotting {len(point_1_parsed) + len(point_2_parsed)} points")
 
 plt.plot(point_1_x, point_1_y, label=f"Seed: {seed_1}", color="red", alpha=0.5)
 plt.plot(point_2_x, point_2_y, label=f"Seed: {seed_2}", color="blue", alpha=0.5)
-
+plt.title(f"Variance: {variance}")
 plt.xlabel('Step')
 plt.ylabel('p')
 plt.legend()
