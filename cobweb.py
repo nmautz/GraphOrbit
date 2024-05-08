@@ -77,7 +77,7 @@ ys = [f(x, c) for x in xs]
 if(cycle_points_xs != []):
     plt.figure(2)
     plt.title('Cycle Points (c={})'.format(c))
-    plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=0.4)
+    plt.plot(cycle_points_xs, cycle_points_ys, 'b-', linewidth=0.8)
     plt.plot([0, 1], [0, 1], 'k--', linewidth=0.4)  # Plot y=x line
     plt.plot(xs, ys, 'r-', linewidth=1)
     plt.show()
@@ -85,7 +85,7 @@ else:
     print(f"No cycle detected in first {n_iter}")
 
 # Create animation
-ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=False)
+ani = FuncAnimation(plt.gcf(), update, frames=range(0, len(x_values), 1), interval=50, repeat=True)
 plt.show()
 
 

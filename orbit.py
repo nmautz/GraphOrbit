@@ -80,7 +80,7 @@ def f(x,c):
     else:
         raise Exception("x must be between 0 and 1")
 
-def simulate_orbit(c, x=0.1, max_orbit = 10000, error=0.001, cutoff=0.94):
+def simulate_orbit(c, x=0.25, max_orbit = 10000, error=0.001, cutoff=0.94):
     func = partial(f, c=c)
     plot_points, lyapunov_exponent = orbit(x, max_orbit, func, error)
     new_pp = []
