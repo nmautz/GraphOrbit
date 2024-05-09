@@ -23,6 +23,11 @@ except:
 x = [point[0] for point in points]
 y = [point[1] for point in points]
 
+py = []
+for i in range(0, len(x)):
+  a = x[i]
+  py.append(a/((a*a)+a-1))
+
 # split lyapunov dict into x and y
 lx = np.array(list(lyapunov_exponents.keys())) 
 ly = np.array(list(lyapunov_exponents.values()))
@@ -44,10 +49,10 @@ plt.grid(False)
 # Create a scatter plot with variable marker size
 if optimized:
   plt.hexbin(x, y, gridsize=optimized, cmap='plasma', alpha=1, mincnt=1)  # Adjust gridsize as needed
-  plt.scatter(lx, ly, marker='o', color='green', label='Lyapunov Exponents', s=0.5, alpha=1)
+  #plt.scatter(lx, ly, marker='o', color='green', label='Lyapunov Exponents', s=0.5, alpha=1)
 else:
   plt.scatter(x, y, marker='o', color='blue', label='Points', s=desired_point_size, alpha=0.03)
-  plt.scatter(lx, ly, marker='o', color='red', label='Lyapunov Exponents', s=0.2, alpha=0.2)
+  plt.scatter(x, py, marker='o', color='red', label='Repelling Orbit point', s=0.2, alpha=0.2)
 # Add labels and title
 plt.xlabel('c')
 plt.ylabel('p')

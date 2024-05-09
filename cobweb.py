@@ -63,7 +63,7 @@ def update(frame):
         return
     plt.clf()  # Clear the previous plot
     plt.grid(True)
-    plt.plot(x_values[:frame], y_values[:frame], 'b-', linewidth=0.4)
+    plt.plot(x_values[:frame], y_values[:frame], 'b-', linewidth=0.8)
     plt.plot([0, 1], [0, 1], 'k--', linewidth=1)  # Plot y=x line
     current_value = current_value = f(x_values[frame], c)
     plt.title(f"Seed: {x0} C:{c}\nStep:{frame}/{len(x_values)}\nx:{current_value}")
